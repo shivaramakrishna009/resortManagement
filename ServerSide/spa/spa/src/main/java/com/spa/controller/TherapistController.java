@@ -26,4 +26,5 @@ public class TherapistController {
                                                   @RequestParam("therapist") String therapistJson) throws Exception {
         return therapistService.saveTherapist(profilePic, therapistJson);
     }
+        
 }
