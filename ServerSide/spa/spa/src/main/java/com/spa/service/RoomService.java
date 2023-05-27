@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.spa.entity.Room;
+import com.spa.exception.ResourceNotFoundException;
 import com.spa.repository.RoomRepository;
 
 @Service
@@ -20,8 +21,9 @@ public class RoomService {
 		return ResponseEntity.ok(room1);
 	}
 
-	public ResponseEntity<Room> update(Room room) {
-		Room room1 = roomRepository.findById(room.getId()).get();
+	public ResponseEntity<Room> update(Long id, Room room) {
+		Room room1 = roomRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Room with " + id + " is not present"));
 		room1.setAirConditioner(room.getAirConditioner());
 		room1.setAvailable(room.isAvailable());
 		room1.setCapacity(room.getCapacity());
